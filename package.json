@@ -6,6 +6,7 @@
   ],
   "scripts": {
     "postinstall": "flow-typed install && flow-mono install-types",
+    "dynamodb:install": "./packages/serverless-dynamodb-local-utils/bin/install.js",
     "flow": "flow",
     "lint": "eslint .",
     "test": "jest --runInBand",

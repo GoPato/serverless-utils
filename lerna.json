@@ -1,0 +1,17 @@
+{
+  "version": "independent",
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "command": {
+    "create": {
+      "esModule": true,
+      "access": "public",
+      "license": "MIT"
+    },
+    "publish": {
+      "allowBranch": "master",
+      "conventionalCommits": true,
+      "message": "chore(release): release 🚀 [skip ci]"
+    }
+  }
+}

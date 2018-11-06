@@ -1,0 +1,15 @@
+# OSX
+.DS_Store
+
+# Temp files
+.dynamodb
+
+# Dependencies
+flow-typed
+node_modules
+
+# Transpiled libs
+packages/**/dist
+
+# Log files
+*.log

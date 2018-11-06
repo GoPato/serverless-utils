@@ -1,0 +1,31 @@
+{
+  "name": "@gopato/serverless-dynamodb-jest-plugin",
+  "version": "1.0.0",
+  "description": "Serverless plugin for testing DynamoDB tables with Jest",
+  "author": "Kevin Wolf <hi@kevinwolf.me>",
+  "homepage": "https://github.com/gopato/gopato-serverless-utils/tree/master/packages/dynamodb-jest-plugin",
+  "license": "MIT",
+  "main": "dist/serverless-dynamodb-jest-plugin.js",
+  "directories": {
+    "lib": "dist",
+    "test": "__tests__"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.yarnpkg.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gopato/gopato-serverless-utils.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gopato/gopato-serverless-utils/issues"
+  },
+  "dependencies": {
+    "babel-jest": "^23.6.0",
+    "jest": "^23.6.0"
+  }
+}

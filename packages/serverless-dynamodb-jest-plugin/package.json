@@ -1,6 +1,6 @@
 {
   "name": "@gopato/serverless-dynamodb-jest-plugin",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Serverless plugin for testing DynamoDB tables with Jest",
   "author": "Kevin Wolf <hi@kevinwolf.me>",
   "homepage": "https://github.com/gopato/gopato-serverless-utils/tree/master/packages/dynamodb-jest-plugin",

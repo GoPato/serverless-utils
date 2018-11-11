@@ -29,6 +29,7 @@ export default class GoPatoDynamoDBLocalPlugin {
       'dynamodb-local:start:startHandler': this.startHandler.bind(this),
       'dynamodb-local:start:migrateHandler': this.migrateHandler.bind(this),
       'dynamodb-local:stop:stopHandler': this.stopHandler.bind(this),
+      'before:invoke:local:invoke': this.setOfflineEnvironmentHandler.bind(this),
     }
   }
 

@@ -74,6 +74,7 @@ export default class GoPatoDynamoDBLocalPlugin {
   async startHandler() {
     this.validateDynamoDBConfig()
     await registerTables(this.dynamodbTables)
+    Object.assign(process.env, this.serverless.service.provider.environment)
     return start()
   }
 

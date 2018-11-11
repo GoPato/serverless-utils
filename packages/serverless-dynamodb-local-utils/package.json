@@ -1,6 +1,6 @@
 {
   "name": "@gopato/serverless-dynamodb-local-utils",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Utilities for working with DynamoDB locally",
   "author": "Kevin Wolf <hi@kevinwolf.me>",
   "homepage": "https://github.com/gopato/gopato-serverless-utils/tree/master/packages/dynamodb-local-utils",
@@ -25,7 +25,7 @@
     "url": "https://github.com/gopato/gopato-serverless-utils/issues"
   },
   "dependencies": {
-    "@gopato/serverless-dynamodb-client": "^1.1.0",
+    "@gopato/serverless-dynamodb-client": "^1.1.1",
     "dynamodb-local": "^0.0.22",
     "serverless-dynamodb-local": "^0.2.35",
     "yup": "^0.26.6"

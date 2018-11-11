@@ -1,6 +1,6 @@
 {
   "name": "@gopato/serverless-dynamodb-local-utils",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Utilities for working with DynamoDB locally",
   "author": "Kevin Wolf <hi@kevinwolf.me>",
   "homepage": "https://github.com/gopato/gopato-serverless-utils/tree/master/packages/dynamodb-local-utils",

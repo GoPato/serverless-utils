@@ -1,4 +1,5 @@
 /* @flow */
+/* eslint-disable no-console */
 import { raw, doc } from '@gopato/serverless-dynamodb-client'
 import { locateSeeds, writeSeeds } from 'serverless-dynamodb-local/src/seeder'
 
@@ -20,6 +21,8 @@ export async function setupTable(tableName: ?string, shouldSeed: boolean = false
   } catch (e) {
     if (e.name === 'ResourceInUseException') {
       console.log(`Info: table ${tableName} already exists!`)
+    } else {
+      console.error(`${e.name}: ${e.message}`)
     }
   }
 }

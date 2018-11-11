@@ -77,6 +77,13 @@ it('should get dynamodb tables', () => {
   expect(plugin.dynamodbTables).toEqual(tablesMock)
 })
 
+it('should set IS_OFFLINE on setOfflineEnvironmentHandler', async () => {
+  delete process.env.IS_OFFLINE
+  const plugin = new GoPatoDynamoDBLocalPlugin(serverlessConfig, {})
+  await plugin.setOfflineEnvironmentHandler()
+  expect(process.env.IS_OFFLINE).toBeTruthy()
+})
+
 it('should start dynamodb on startHandler', async () => {
   const plugin = new GoPatoDynamoDBLocalPlugin(serverlessConfig, {})
   await plugin.startHandler()

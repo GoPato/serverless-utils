@@ -5,8 +5,13 @@ const options = {
   endpoint: 'http://localhost:8000',
 }
 
-const testWithEnvironment = (env, shouldMatch = true) => {
-  process.env.NODE_ENV = env
+const testWithOffline = (isOffline = true, shouldMatch = true) => {
+  if (isOffline) {
+    process.env.IS_OFFLINE = 'true'
+  } else {
+    delete process.env.IS_OFFLINE
+  }
+
   const { raw, doc } = require('../src/serverless-dynamodb-client')
 
   if (shouldMatch) {
@@ -16,22 +21,16 @@ const testWithEnvironment = (env, shouldMatch = true) => {
     expect(raw.config).not.toMatchObject(options)
     expect(doc.options).not.toMatchObject(options)
   }
-
-  process.env.NODE_ENV = undefined
 }
 
 beforeEach(() => {
   jest.resetModules()
 })
 
-it('should attach local endpoints when NODE_ENV is development', () => {
-  testWithEnvironment('development')
+it('should attach local endpoints when IS_OFFLINE is true', () => {
+  testWithOffline()
 })
 
-it('should attach local endpoints when NODE_ENV is test', () => {
-  testWithEnvironment('test')
-})
-
-it('should not attach local endpoints when NODE_ENV is different', () => {
-  testWithEnvironment('other', false)
+it('should not attach local endpoints when IS_OFFLINE is true', () => {
+  testWithOffline()
 })

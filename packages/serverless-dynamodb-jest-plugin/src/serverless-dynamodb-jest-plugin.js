@@ -24,6 +24,7 @@ export default class GoPatoDynamoDBJestPlugin {
     Object.assign(process.env, {
       ...this.serverless.service.provider.environment,
       NODE_ENV: 'test',
+      IS_OFFLINE: 'true',
     })
     return runCLI(this.options, [this.serverless.config.servicePath])
   }

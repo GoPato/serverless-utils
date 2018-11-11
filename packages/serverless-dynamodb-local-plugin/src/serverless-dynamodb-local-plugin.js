@@ -1,8 +1,4 @@
 /* eslint-disable class-methods-use-this */
-import {
- start, registerTables, setupTable, stop,
-} from '@gopato/serverless-dynamodb-local-utils'
-
 export default class GoPatoDynamoDBLocalPlugin {
   constructor(serverless, options) {
     this.serverless = serverless
@@ -15,7 +11,7 @@ export default class GoPatoDynamoDBLocalPlugin {
             lifecycleEvents: ['installHandler'],
           },
           start: {
-            lifecycleEvents: ['startHandler', 'migrateHandler'],
+            lifecycleEvents: ['setOfflineEnvironmentHandler', 'startHandler', 'migrateHandler'],
           },
           stop: {
             lifecycleEvents: ['stopHandler'],
@@ -27,14 +23,20 @@ export default class GoPatoDynamoDBLocalPlugin {
     this.hooks = {
       'dynamodb-local:install:installHandler': this.startHandler.bind(this),
       'after:dynamodb-local:install:installHandler': this.stopHandler.bind(this),
+      'dynamodb-local:start:setOfflineEnvironmentHandler': this.setOfflineEnvironmentHandler.bind(
+        this,
+      ),
       'dynamodb-local:start:startHandler': this.startHandler.bind(this),
       'dynamodb-local:start:migrateHandler': this.migrateHandler.bind(this),
       'dynamodb-local:stop:stopHandler': this.stopHandler.bind(this),
     }
   }
 
-  log(message) {
-    this.serverless.cli.log(`[dynamodb-local-plugin]: ${message}`)
+  setOfflineEnvironmentHandler() {
+    Object.assign(process.env, {
+      ...this.serverless.service.provider.environment,
+      IS_OFFLINE: 'true',
+    })
   }
 
   validateDynamoDBConfig() {
@@ -59,6 +61,11 @@ export default class GoPatoDynamoDBLocalPlugin {
     }
   }
 
+  get utils() {
+    /* eslint-disable global-require */
+    return require('@gopato/serverless-dynamodb-local-utils')
+  }
+
   get dynamodbTables() {
     return Object.values(this.serverless.service.resources.Resources)
       .filter(({ Type }) => Type === 'AWS::DynamoDB::Table')
@@ -73,9 +80,8 @@ export default class GoPatoDynamoDBLocalPlugin {
 
   async startHandler() {
     this.validateDynamoDBConfig()
-    await registerTables(this.dynamodbTables)
-    Object.assign(process.env, this.serverless.service.provider.environment)
-    return start()
+    await this.utils.registerTables(this.dynamodbTables)
+    await this.utils.start()
   }
 
   async migrateHandler() {
@@ -83,10 +89,12 @@ export default class GoPatoDynamoDBLocalPlugin {
       return false
     }
 
-    return Promise.all(this.dynamodbTables.map(table => setupTable(table.config.TableName, true)))
+    return Promise.all(
+      this.dynamodbTables.map(table => this.utils.setupTable(table.config.TableName, true)),
+    )
   }
 
   stopHandler() {
-    return stop()
+    return this.utils.stop()
   }
 }

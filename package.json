@@ -9,7 +9,7 @@
     "dynamodb:install": "./packages/serverless-dynamodb-local-utils/bin/install.js",
     "flow": "flow",
     "lint": "eslint .",
-    "test": "jest --runInBand",
+    "test": "IS_OFFLINE=true jest --runInBand",
     "build": "node ./scripts/build",
     "release": "lerna publish"
   },
